@@ -1,6 +1,10 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -36,10 +40,13 @@ class CommandLineParser {
      * @throws ParsingException
      */
     HashMap<Integer, HashMap<Integer, List<TimePeriod>>> parseFile() throws ParsingException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        Path path = Paths.get("tests", fileName);
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(new File(path.toUri())))) {
             String line = reader.readLine();
             while (line != null) {
-                parseLine(line.split(", "));
+                parseLine(line.trim().replaceAll("\\s{2,}", " ")
+                        .split(", "));
                 line = reader.readLine();
             }
         } catch (IOException e) {

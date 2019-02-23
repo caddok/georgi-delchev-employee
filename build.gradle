@@ -18,5 +18,8 @@ test {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.4.0'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.4.0'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.4.0'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.4.0'
 }

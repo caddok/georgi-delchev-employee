@@ -3,7 +3,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class PairFinder {
+class PairFinder {
+    /**
+     *
+     * @param periodsByEmployeeIdByProjectId Employees ordered by projects
+     *                                       they worked on
+     * @return The pair of employee who worked together on the same
+     * projects for the longest time, if such pair exists
+     */
     Optional<EmployeePair> getTheLongestWorkingTogether(HashMap<Integer,
             HashMap<Integer, List<TimePeriod>>> periodsByEmployeeIdByProjectId) {
 
