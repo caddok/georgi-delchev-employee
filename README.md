@@ -14,7 +14,7 @@ Enter the root directory of the project.
 - for *nix systems use
 ```./gradlew run --args="input-file.txt"```
 - for windows systems use
-  ```gradlew.bat run --args="input-file.txt"```  
+  ```gradlew.bat clean --args="input-file.txt"```  
 All files must be in the tests directory that can be found in the root of the project.
 ## Running the tests
 
@@ -23,6 +23,6 @@ There is also a style checker support with the default configuration
 from Sun.    
 To run the tests and style checker:  
 - for *nix systems use
-```./gradlew check```
+```./gradlew check --rerun-tasks```
 - for windows systems use
-  ```gradlew.bat check```
+  ```gradlew.bat check --rerun-tasks```
