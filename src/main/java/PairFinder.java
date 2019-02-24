@@ -4,31 +4,33 @@ import java.util.List;
 import java.util.Optional;
 
 class PairFinder {
+    private static boolean periodsAreOverlapping(final TimePeriod period, final TimePeriod otherTimePeriod) {
+        return !(period.getStartDate().isAfter(otherTimePeriod.getEndDate())
+                || period.getEndDate().isBefore(otherTimePeriod.getStartDate()));
+    }
+
     /**
-     *
      * @param periodsByEmployeeIdByProjectId Employees ordered by projects
      *                                       they worked on
      * @return The pair of employee who worked together on the same
      * projects for the longest time, if such pair exists
      */
-    Optional<EmployeePair> getTheLongestWorkingTogether(HashMap<Integer,
+    Optional<EmployeePair> getTheLongestWorkingTogether(final HashMap<Integer,
             HashMap<Integer, List<TimePeriod>>> periodsByEmployeeIdByProjectId) {
 
         HashMap<EmployeePair, EmployeePair> commonProjectsWorkedInDays = new HashMap<>();
-        for (Integer projectId : periodsByEmployeeIdByProjectId.keySet()) {
-            HashMap<Integer, List<TimePeriod>> peopleWorkedOnTheSameProject =
-                    periodsByEmployeeIdByProjectId.get(projectId);
-            for (int employeeID : peopleWorkedOnTheSameProject.keySet()) {
-                for (int otherEmployee : peopleWorkedOnTheSameProject.keySet()) {
+        for (HashMap<Integer, List<TimePeriod>> peopleThatWorkedOnTheSameProject : periodsByEmployeeIdByProjectId.values()) {
+            for (int employeeId : peopleThatWorkedOnTheSameProject.keySet()) {
+                for (int otherEmployeeId : peopleThatWorkedOnTheSameProject.keySet()) {
 
-                    if (employeeID == otherEmployee) {
+                    if (employeeId == otherEmployeeId) {
                         continue;
                     }
 
-                    for (TimePeriod period : peopleWorkedOnTheSameProject.get(employeeID)) {
-                        for (TimePeriod otherTimePeriod : peopleWorkedOnTheSameProject.get(otherEmployee)) {
+                    for (TimePeriod period : peopleThatWorkedOnTheSameProject.get(employeeId)) {
+                        for (TimePeriod otherTimePeriod : peopleThatWorkedOnTheSameProject.get(otherEmployeeId)) {
                             if (periodsAreOverlapping(period, otherTimePeriod)) {
-                                EmployeePair pair = new EmployeePair(employeeID, otherEmployee);
+                                EmployeePair pair = new EmployeePair(employeeId, otherEmployeeId);
                                 commonProjectsWorkedInDays.computeIfPresent(pair, (k, v) -> {
                                     v.addDaysWorkedTogether(period.getOverlappingPeriod(otherTimePeriod));
                                     return v;
@@ -44,11 +46,6 @@ class PairFinder {
         return commonProjectsWorkedInDays.values()
                 .stream()
                 .max(Comparator.comparingInt(EmployeePair::getDaysWorkedTogether));
-    }
-
-    private static boolean periodsAreOverlapping(TimePeriod period, TimePeriod otherTimePeriod) {
-        return !(period.getStartDate().isAfter(otherTimePeriod.getEndDate())
-                || period.getEndDate().isBefore(otherTimePeriod.getStartDate()));
     }
 
 }

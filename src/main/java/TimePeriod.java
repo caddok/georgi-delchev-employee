@@ -1,24 +1,24 @@
 import java.time.LocalDate;
 import java.time.Period;
 
-public class TimePeriod {
-    private LocalDate startDate;
-    private LocalDate endDate;
+public final class TimePeriod {
+    private LocalDate sDate;
+    private LocalDate eDate;
 
-    TimePeriod(LocalDate startDate, LocalDate endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+    TimePeriod(final LocalDate startDate, final LocalDate endDate) {
+        this.sDate = startDate;
+        this.eDate = endDate;
     }
 
     LocalDate getStartDate() {
-        return startDate;
+        return sDate;
     }
 
     LocalDate getEndDate() {
-        return endDate;
+        return eDate;
     }
 
-    Integer getOverlappingPeriod(TimePeriod otherTimePeriod) {
+    Integer getOverlappingPeriod(final TimePeriod otherTimePeriod) {
         LocalDate start;
         LocalDate end;
         if (this.getStartDate().isBefore(otherTimePeriod.getStartDate())) {
@@ -33,6 +33,6 @@ public class TimePeriod {
             end = this.getEndDate();
         }
 
-        return Period.between(start,end).getDays();
+        return Period.between(start, end).getDays();
     }
 }
