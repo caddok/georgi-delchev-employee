@@ -18,6 +18,10 @@ test {
     useJUnitPlatform()
 }
 
+checkstyle {
+    checkstyleTest.enabled = false
+}
+
 dependencies {
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.4.0'
     testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.4.0'
