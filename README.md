@@ -14,7 +14,8 @@ Enter the root directory of the project.
 - for *nix systems use
 ```./gradlew run --args="input-file.txt"```
 - for windows systems use
-  ```gradlew.bat run --args="input-file.txt"```
+  ```gradlew.bat run --args="input-file.txt"```  
+All files must be in the tests directory that can be found in the root of the project.
 ## Running the tests
 
 The project comes with a test suite that covers most edge cases.
